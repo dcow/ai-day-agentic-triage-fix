@@ -9,7 +9,7 @@ permissions:
   issues: read
   pull-requests: read
 safe-outputs:
-  add-comment:
+  submit-pull-request-review:
 tools:
   github:
     toolsets: [default]
@@ -40,9 +40,9 @@ Do **not** flag: code style, formatting, naming preferences, or subjective impro
 
 If you find nothing material, say so explicitly — do not invent risks to appear thorough.
 
-## Step 3: Post a Comment
+## Step 3: Submit a Review
 
-Post a single comment in this format:
+Submit a pull request review using this body format:
 
 ```
 **Risk review** — <one sentence overall assessment>
@@ -59,3 +59,7 @@ Risk levels:
 
 If nothing material was found, replace the issues list with:
 > No significant risks identified.
+
+**Review event:**
+- If any `high` severity issues were found: submit as `REQUEST_CHANGES`
+- Otherwise: submit as `COMMENT`
