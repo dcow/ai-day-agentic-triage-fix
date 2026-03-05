@@ -1,36 +1,47 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Agentic Triage & Fix
 
-## Getting Started
+This repo demonstrates a [GitHub Agentic Workflow](https://github.github.com/gh-aw/) that automatically triages new issues and opens pull requests for confirmed bugs.
 
-First, run the development server:
+When an issue is opened, the workflow:
+1. Classifies it as a bug, enhancement, question, or needs-more-info
+2. For bugs: reads the relevant source code and attempts a high-confidence fix
+3. Opens a PR if a fix is found, or posts a summary comment explaining its findings
+
+The workflow is defined in [`.github/workflows/triage-and-fix.md`](.github/workflows/triage-and-fix.md) and runs on Claude Code.
+
+## Example App
+
+The repo includes a simple todo list app (Next.js + Tailwind) as a target codebase for testing the workflow. It's deployed at **https://ai-day-agentic-triage-fix.vercel.app**.
+
+### Development
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) to see the app. The main page is `app/page.tsx` and utility logic lives in `lib/todos.ts`.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Building
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+npm run build
+```
 
-## Learn More
+### Linting
 
-To learn more about Next.js, take a look at the following resources:
+```bash
+npm run lint
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Workflow Development
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+The agentic workflow is managed with the [`gh aw`](https://github.com/github/gh-aw) CLI extension.
 
-## Deploy on Vercel
+```bash
+gh aw compile    # compile triage-and-fix.md → .lock.yml (run after any edits)
+gh aw validate   # validate without writing lock files
+gh aw list       # show workflow status
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Edit `.github/workflows/triage-and-fix.md` to change how the agent behaves, then run `gh aw compile` to regenerate the lock file before pushing.
