@@ -16,7 +16,7 @@ export function filterTodos(todos: Todo[], mode: FilterMode): Todo[] {
 // Returns the number of remaining (incomplete) todos.
 export function countRemaining(todos: Todo[]): number {
   let count = 0;
-  for (let i = 1; i < todos.length; i++) {
+  for (let i = 0; i < todos.length; i++) {
     if (!todos[i].completed) count++;
   }
   return count;
