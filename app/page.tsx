@@ -117,24 +117,30 @@ export default function Page() {
         )}
       </div>
 
-      <footer className="mt-12 text-xs text-gray-400 text-center">
-        <a
-          href="https://github.com/dcow/ai-day-agentic-triage-fix"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="hover:text-gray-600"
-        >
-          GitHub
-        </a>
-        {" · "}
-        <a
-          href="https://raw.githubusercontent.com/dcow/ai-day-agentic-triage-fix/main/slides/slides.html"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="hover:text-gray-600"
-        >
-          Slides
-        </a>
+      <footer className="mt-12 text-xs text-gray-400 text-center space-y-1">
+        <p>
+          This app is an AI Day demo — a GitHub Actions workflow using Claude Code
+          automatically triages issues and opens PRs with no human in the loop.
+        </p>
+        <p>
+          <a
+            href="https://github.com/dcow/ai-day-agentic-triage-fix"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hover:text-gray-600"
+          >
+            GitHub
+          </a>
+          {" · "}
+          <a
+            href="/slides.html"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hover:text-gray-600"
+          >
+            Slides
+          </a>
+        </p>
       </footer>
     </main>
   );
