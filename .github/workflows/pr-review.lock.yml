@@ -22,7 +22,7 @@
 # For more information: https://github.github.com/gh-aw/introduction/overview/
 #
 #
-# gh-aw-metadata: {"schema_version":"v1","frontmatter_hash":"fc5aefd2a32c4f2821290366ac50be778af399680a2dc26032731b0b24eb7b5d","compiler_version":"v0.53.4"}
+# gh-aw-metadata: {"schema_version":"v1","frontmatter_hash":"61ac59f7ca5f7c277c3ecbc37b879865cbf65d93841c0b22a5c4a7271dea3b04","compiler_version":"v0.53.4"}
 
 name: "PR Review Agent"
 "on":
@@ -101,12 +101,12 @@ jobs:
           sparse-checkout-cone-mode: true
           fetch-depth: 1
           persist-credentials: false
-      - name: Add eyes reaction for immediate feedback
+      - name: Add rocket reaction for immediate feedback
         id: react
         if: github.event_name == 'issues' || github.event_name == 'issue_comment' || github.event_name == 'pull_request_review_comment' || github.event_name == 'discussion' || github.event_name == 'discussion_comment' || (github.event_name == 'pull_request') && (github.event.pull_request.head.repo.id == github.repository_id)
         uses: actions/github-script@ed597411d8f924073f98dfc5c65a23a2325f34cd # v8
         env:
-          GH_AW_REACTION: "eyes"
+          GH_AW_REACTION: "rocket"
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |

@@ -2,6 +2,7 @@
 on:
   issues:
     types: [opened]
+  reaction: eyes
 engine: claude
 permissions:
   contents: read

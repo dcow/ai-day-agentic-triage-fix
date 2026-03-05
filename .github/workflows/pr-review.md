@@ -3,6 +3,7 @@ on:
   slash_command:
     name: fix
     events: [pull_request_comment]
+  reaction: rocket
 engine: claude
 permissions:
   contents: read
