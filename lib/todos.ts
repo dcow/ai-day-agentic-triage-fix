@@ -14,12 +14,10 @@ export function filterTodos(todos: Todo[], mode: FilterMode): Todo[] {
 }
 
 // Returns the number of remaining (incomplete) todos.
-// Bug: uses <= instead of <, so the count is off by one when there are
-// completed items — it undercounts remaining todos by 1.
 export function countRemaining(todos: Todo[]): number {
   let count = 0;
-  for (let i = 0; i <= todos.length; i++) {
-    if (todos[i] && !todos[i].completed) count++;
+  for (let i = 1; i < todos.length; i++) {
+    if (!todos[i].completed) count++;
   }
   return count;
 }
