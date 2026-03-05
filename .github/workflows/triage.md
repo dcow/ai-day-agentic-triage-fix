@@ -2,7 +2,6 @@
 on:
   issues:
     types: [opened]
-engine: claude
 permissions:
   contents: read
   issues: read

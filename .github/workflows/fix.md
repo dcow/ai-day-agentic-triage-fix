@@ -17,7 +17,7 @@ tools:
     toolsets: [default]
 ---
 
-# Bug Fix Agent
+# Bugfix Agent
 
 You are an automated senior software engineer. Your job is to investigate confirmed bugs and attempt a high-confidence fix.
 
