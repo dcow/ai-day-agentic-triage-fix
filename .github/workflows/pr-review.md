@@ -2,7 +2,7 @@
 on:
   slash_command:
     name: fix
-    events: [issue_comment]
+    events: [pull_request_comment]
 engine: claude
 permissions:
   contents: read
@@ -20,29 +20,25 @@ tools:
 
 You respond to `/fix` commands on pull requests by applying the requested changes and pushing new commits.
 
-## Step 1: Check Preconditions
-
-Only proceed if the comment was made on a **pull request**, not a plain issue. If it is on a plain issue, stop immediately and do nothing.
-
-## Step 2: Read Context
+## Step 1: Read Context
 
 Use the github tool to gather everything you need:
 - The PR title, description, and diff — understand what was built and why
 - The full comment thread — understand the feedback history
 - The relevant source files touched by the PR
 
-## Step 3: Apply the Changes
+## Step 2: Apply the Changes
 
 Implement exactly what was requested in the `/fix` comment. Be surgical:
 - Change only what is necessary to satisfy the request
 - Do not refactor, reformat, or clean up unrelated code
 - Do not introduce breaking changes
 
-## Step 4: Push
+## Step 3: Push
 
 Commit and push the changes to the PR branch with a clear, descriptive commit message.
 
-## Step 5: Reply
+## Step 4: Reply
 
 Post a single comment:
 

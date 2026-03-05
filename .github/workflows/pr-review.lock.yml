@@ -22,7 +22,7 @@
 # For more information: https://github.github.com/gh-aw/introduction/overview/
 #
 #
-# gh-aw-metadata: {"schema_version":"v1","frontmatter_hash":"4c076ce3c670627e076261c03cf0c28bf30f3065ddad74697c2c0bb683c07cb3","compiler_version":"v0.53.4"}
+# gh-aw-metadata: {"schema_version":"v1","frontmatter_hash":"fc5aefd2a32c4f2821290366ac50be778af399680a2dc26032731b0b24eb7b5d","compiler_version":"v0.53.4"}
 
 name: "PR Review Agent"
 "on":
@@ -43,7 +43,7 @@ jobs:
     needs: pre_activation
     if: >
       (needs.pre_activation.outputs.activated == 'true') && ((github.event_name == 'issue_comment') && (((startsWith(github.event.comment.body, '/fix ')) ||
-      (github.event.comment.body == '/fix')) && (github.event.issue.pull_request == null)))
+      (github.event.comment.body == '/fix')) && (github.event.issue.pull_request != null)))
     runs-on: ubuntu-slim
     permissions:
       contents: read
@@ -1159,7 +1159,7 @@ jobs:
   pre_activation:
     if: >
       (github.event_name == 'issue_comment') && (((startsWith(github.event.comment.body, '/fix ')) || (github.event.comment.body == '/fix')) &&
-      (github.event.issue.pull_request == null))
+      (github.event.issue.pull_request != null))
     runs-on: ubuntu-slim
     outputs:
       activated: ${{ (steps.check_membership.outputs.is_team_member == 'true') && (steps.check_command_position.outputs.command_position_ok == 'true') }}
