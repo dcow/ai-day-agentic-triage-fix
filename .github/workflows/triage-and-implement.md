@@ -65,7 +65,6 @@ If a fix is ready, open a PR with:
 
 Assess whether the request is well-specified and self-contained. Only proceed if:
 - The feature is clearly described with enough detail to implement correctly
-- Changes are limited to ~3 files and require no new dependencies or infrastructure
 - No breaking changes to existing behavior
 
 If all conditions are met, implement the feature and open a PR with:
