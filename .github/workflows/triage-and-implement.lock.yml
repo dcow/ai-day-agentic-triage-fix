@@ -24,7 +24,7 @@
 #
 # gh-aw-metadata: {"schema_version":"v1","frontmatter_hash":"3bfe37528210b7b6f69cd87da05a103ba8f1b4ad02ad74bf615b7325fae330d4","compiler_version":"v0.53.4"}
 
-name: "Bug Triage & Auto-Fix Agent"
+name: "Issue Triage & Auto-Implement Agent"
 "on":
   issues:
     types:
@@ -35,7 +35,7 @@ permissions: {}
 concurrency:
   group: "gh-aw-${{ github.workflow }}-${{ github.event.issue.number || github.run_id }}"
 
-run-name: "Bug Triage & Auto-Fix Agent"
+run-name: "Issue Triage & Auto-Implement Agent"
 
 jobs:
   activation:
@@ -66,7 +66,7 @@ jobs:
           GH_AW_INFO_VERSION: ""
           GH_AW_INFO_AGENT_VERSION: "2.1.66"
           GH_AW_INFO_CLI_VERSION: "v0.53.4"
-          GH_AW_INFO_WORKFLOW_NAME: "Bug Triage & Auto-Fix Agent"
+          GH_AW_INFO_WORKFLOW_NAME: "Issue Triage & Auto-Implement Agent"
           GH_AW_INFO_EXPERIMENTAL: "false"
           GH_AW_INFO_SUPPORTS_TOOLS_ALLOWLIST: "true"
           GH_AW_INFO_STAGED: "false"
@@ -97,7 +97,7 @@ jobs:
       - name: Check workflow file timestamps
         uses: actions/github-script@ed597411d8f924073f98dfc5c65a23a2325f34cd # v8
         env:
-          GH_AW_WORKFLOW_FILE: "triage-and-fix.lock.yml"
+          GH_AW_WORKFLOW_FILE: "triage-and-implement.lock.yml"
         with:
           script: |
             const { setupGlobals } = require('/opt/gh-aw/actions/setup_globals.cjs');
@@ -175,7 +175,7 @@ jobs:
           </system>
           GH_AW_PROMPT_EOF
           cat << 'GH_AW_PROMPT_EOF'
-          {{#runtime-import .github/workflows/triage-and-fix.md}}
+          {{#runtime-import .github/workflows/triage-and-implement.md}}
           GH_AW_PROMPT_EOF
           } > "$GH_AW_PROMPT"
       - name: Interpolate variables and render templates
@@ -257,7 +257,7 @@ jobs:
       GH_AW_SAFE_OUTPUTS: /opt/gh-aw/safeoutputs/outputs.jsonl
       GH_AW_SAFE_OUTPUTS_CONFIG_PATH: /opt/gh-aw/safeoutputs/config.json
       GH_AW_SAFE_OUTPUTS_TOOLS_PATH: /opt/gh-aw/safeoutputs/tools.json
-      GH_AW_WORKFLOW_ID_SANITIZED: triageandfix
+      GH_AW_WORKFLOW_ID_SANITIZED: triageandimplement
     outputs:
       checkout_pr_success: ${{ steps.checkout-pr.outputs.checkout_pr_success || 'true' }}
       detection_conclusion: ${{ steps.detection_conclusion.outputs.conclusion }}
@@ -1009,7 +1009,7 @@ jobs:
         if: always() && steps.detection_guard.outputs.run_detection == 'true'
         uses: actions/github-script@ed597411d8f924073f98dfc5c65a23a2325f34cd # v8
         env:
-          WORKFLOW_NAME: "Bug Triage & Auto-Fix Agent"
+          WORKFLOW_NAME: "Issue Triage & Auto-Implement Agent"
           WORKFLOW_DESCRIPTION: "No description provided"
           HAS_PATCH: ${{ steps.collect_output.outputs.has_patch }}
         with:
@@ -1113,7 +1113,7 @@ jobs:
       issues: write
       pull-requests: write
     concurrency:
-      group: "gh-aw-conclusion-triage-and-fix"
+      group: "gh-aw-conclusion-triage-and-implement"
       cancel-in-progress: false
     outputs:
       noop_message: ${{ steps.noop.outputs.noop_message }}
@@ -1143,7 +1143,7 @@ jobs:
         env:
           GH_AW_AGENT_OUTPUT: ${{ env.GH_AW_AGENT_OUTPUT }}
           GH_AW_NOOP_MAX: "1"
-          GH_AW_WORKFLOW_NAME: "Bug Triage & Auto-Fix Agent"
+          GH_AW_WORKFLOW_NAME: "Issue Triage & Auto-Implement Agent"
         with:
           github-token: ${{ secrets.GH_AW_GITHUB_TOKEN || secrets.GITHUB_TOKEN }}
           script: |
@@ -1156,7 +1156,7 @@ jobs:
         uses: actions/github-script@ed597411d8f924073f98dfc5c65a23a2325f34cd # v8
         env:
           GH_AW_AGENT_OUTPUT: ${{ env.GH_AW_AGENT_OUTPUT }}
-          GH_AW_WORKFLOW_NAME: "Bug Triage & Auto-Fix Agent"
+          GH_AW_WORKFLOW_NAME: "Issue Triage & Auto-Implement Agent"
         with:
           github-token: ${{ secrets.GH_AW_GITHUB_TOKEN || secrets.GITHUB_TOKEN }}
           script: |
@@ -1169,10 +1169,10 @@ jobs:
         uses: actions/github-script@ed597411d8f924073f98dfc5c65a23a2325f34cd # v8
         env:
           GH_AW_AGENT_OUTPUT: ${{ env.GH_AW_AGENT_OUTPUT }}
-          GH_AW_WORKFLOW_NAME: "Bug Triage & Auto-Fix Agent"
+          GH_AW_WORKFLOW_NAME: "Issue Triage & Auto-Implement Agent"
           GH_AW_RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
           GH_AW_AGENT_CONCLUSION: ${{ needs.agent.result }}
-          GH_AW_WORKFLOW_ID: "triage-and-fix"
+          GH_AW_WORKFLOW_ID: "triage-and-implement"
           GH_AW_SECRET_VERIFICATION_RESULT: ${{ needs.activation.outputs.secret_verification_result }}
           GH_AW_CHECKOUT_PR_SUCCESS: ${{ needs.agent.outputs.checkout_pr_success }}
           GH_AW_CODE_PUSH_FAILURE_ERRORS: ${{ needs.safe_outputs.outputs.code_push_failure_errors }}
@@ -1191,7 +1191,7 @@ jobs:
         uses: actions/github-script@ed597411d8f924073f98dfc5c65a23a2325f34cd # v8
         env:
           GH_AW_AGENT_OUTPUT: ${{ env.GH_AW_AGENT_OUTPUT }}
-          GH_AW_WORKFLOW_NAME: "Bug Triage & Auto-Fix Agent"
+          GH_AW_WORKFLOW_NAME: "Issue Triage & Auto-Implement Agent"
           GH_AW_RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
           GH_AW_AGENT_CONCLUSION: ${{ needs.agent.result }}
           GH_AW_NOOP_MESSAGE: ${{ steps.noop.outputs.noop_message }}
@@ -1208,7 +1208,7 @@ jobs:
         uses: actions/github-script@ed597411d8f924073f98dfc5c65a23a2325f34cd # v8
         env:
           GH_AW_AGENT_OUTPUT: ${{ env.GH_AW_AGENT_OUTPUT }}
-          GH_AW_WORKFLOW_NAME: "Bug Triage & Auto-Fix Agent"
+          GH_AW_WORKFLOW_NAME: "Issue Triage & Auto-Implement Agent"
           GH_AW_RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
         with:
           github-token: ${{ secrets.GH_AW_GITHUB_TOKEN || secrets.GITHUB_TOKEN }}
@@ -1254,10 +1254,10 @@ jobs:
       pull-requests: write
     timeout-minutes: 15
     env:
-      GH_AW_CALLER_WORKFLOW_ID: "${{ github.repository }}/triage-and-fix"
+      GH_AW_CALLER_WORKFLOW_ID: "${{ github.repository }}/triage-and-implement"
       GH_AW_ENGINE_ID: "claude"
-      GH_AW_WORKFLOW_ID: "triage-and-fix"
-      GH_AW_WORKFLOW_NAME: "Bug Triage & Auto-Fix Agent"
+      GH_AW_WORKFLOW_ID: "triage-and-implement"
+      GH_AW_WORKFLOW_NAME: "Issue Triage & Auto-Implement Agent"
     outputs:
       code_push_failure_count: ${{ steps.process_safe_outputs.outputs.code_push_failure_count }}
       code_push_failure_errors: ${{ steps.process_safe_outputs.outputs.code_push_failure_errors }}

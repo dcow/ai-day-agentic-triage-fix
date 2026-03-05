@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Overview
 
-This repository defines a GitHub Actions-based AI agent that automatically triages new GitHub issues and attempts to generate bug fixes via pull requests. There is no build system, test suite, or application code — the repository's sole artifact is an agentic workflow definition.
+This repository defines a GitHub Actions-based AI agent that automatically triages new GitHub issues and opens pull requests for confirmed bugs and well-scoped enhancements. The repo also includes a simple Next.js todo app as the target codebase for testing the workflow.
 
 ## Tooling
 
@@ -12,17 +12,17 @@ Workflows are managed with the `gh aw` CLI extension (GitHub Agentic Workflows):
 
 ```bash
 gh aw compile                  # Compile all workflows (generates .lock.yml files)
-gh aw compile triage-and-fix   # Compile a specific workflow
+gh aw compile triage-and-implement   # Compile a specific workflow
 gh aw validate                 # Validate without generating lock files
 gh aw list                     # List all workflows and their status
-gh aw run triage-and-fix       # Run a workflow on GitHub Actions
+gh aw run triage-and-implement       # Run a workflow on GitHub Actions
 ```
 
 Always run `gh aw compile` after editing a workflow file to catch errors.
 
 ## Workflow File Format
 
-`.github/workflows/triage-and-fix.md` uses a hybrid format:
+`.github/workflows/triage-and-implement.md` uses a hybrid format:
 
 - **YAML front matter** (between `---` delimiters): trigger, permissions, safe-outputs, tools
 - **Markdown body**: the natural language prompt that drives agent behavior
@@ -67,4 +67,4 @@ permissions:
 
 ## Modifying Agent Behavior
 
-Edit the prompt body in `.github/workflows/triage-and-fix.md`. To add new write capabilities (e.g., posting comments), add the corresponding entry to `safe-outputs` and recompile.
+Edit the prompt body in `.github/workflows/triage-and-implement.md`. To add new write capabilities (e.g., posting comments), add the corresponding entry to `safe-outputs` and recompile. Always run `gh aw compile` after any edits.
