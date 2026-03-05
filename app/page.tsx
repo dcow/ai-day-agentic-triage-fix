@@ -119,8 +119,16 @@ export default function Page() {
 
       <footer className="mt-12 text-xs text-gray-400 text-center space-y-1">
         <p>
-          This app is an AI Day demo — a GitHub Actions workflow using Claude Code
-          automatically triages issues and opens PRs with no human in the loop.
+          This app is an AI Day demo —{" "}
+          <a
+            href="https://github.github.com/gh-aw/introduction/overview/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hover:text-gray-600"
+          >
+            a GitHub Actions agentic workflow
+          </a>
+          {" "}using Claude Code to triage issues and opens PRs with no human in the loop.
         </p>
         <p>
           <a
@@ -133,7 +141,7 @@ export default function Page() {
           </a>
           {" · "}
           <a
-            href="/slides.html"
+            href="/slides2.html"
             target="_blank"
             rel="noopener noreferrer"
             className="hover:text-gray-600"
