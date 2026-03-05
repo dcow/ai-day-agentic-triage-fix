@@ -73,7 +73,7 @@ If a fix is ready, open a PR with:
 
 ## Step 5: Post a Summary Comment
 
-Always post a comment on the issue. Use this structure:
+Always post a single comment on the issue using this structure. Do not post any other comments — include all relevant links (e.g. opened PR) inline in the Conclusion field.
 
 ```
 **Triage summary**
