@@ -53,6 +53,7 @@ Only proceed with a fix if you can identify a **specific, localized root cause**
 
 If a fix is ready, open a PR with:
 - Title: `fix: [brief summary]`
+- Label: `bug`
 - Body:
   ```
   Closes #<issue-number>
@@ -70,6 +71,7 @@ Assess whether the request is well-specified and self-contained. Only proceed if
 
 If all conditions are met, implement the feature and open a PR with:
 - Title: `feat: [brief summary]`
+- Label: `enhancement`
 - Body:
   ```
   Closes #<issue-number>
