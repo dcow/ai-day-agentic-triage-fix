@@ -51,7 +51,13 @@ Only proceed with a fix if you can identify a **specific, localized root cause**
 - Ensure no breaking changes to public APIs or behavior
 - If the fix requires changes to more than ~3 files or touches core/shared logic, skip the PR
 
-If a fix is ready, open a PR with:
+If a fix is ready, also write a test before opening the PR:
+- Read `lib/todos.test.ts` if it exists; append to it, otherwise create it
+- Write one focused test for the exact scenario from the issue using `describe`/`it`/`expect` from vitest
+- Add a comment on the test: `// this test would have failed before this fix`
+- Keep it minimal — one specific case, not exhaustive coverage
+
+Then open a PR with both the fix and the updated test file:
 - Title: `fix: [brief summary]`
 - Label: `bug`
 - Body:
@@ -61,6 +67,8 @@ If a fix is ready, open a PR with:
   **Root cause:** <one sentence>
 
   **Fix:** <one sentence describing the change>
+
+  **Test:** added a regression test to `lib/todos.test.ts`
   ```
 
 ### If enhancement
