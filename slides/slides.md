@@ -207,6 +207,21 @@ That's the point.
 
 ---
 
+## Thoughts on GitHub Agentic Workflows
+
+The primitives are right. Markdown-defined agents, safe outputs as a capability allowlist, predicate-gated triggers — the design is sound.
+
+The edges are rough.
+
+- Label node ID bugs during PR creation cause silent cascading failures
+- No mid-run job outputs — you can't act on an agent's decision in the same workflow
+- Token identity constraints mean the same account can't open *and* review a PR
+- `GH_AW_CI_TRIGGER_TOKEN` vs `GH_AW_GITHUB_TOKEN` split is underdocumented
+
+**Worth watching.** The core loop works. The hardening isn't there yet.
+
+---
+
 <!-- _class: lead -->
 
 ## The issue tracker becomes a product spec
