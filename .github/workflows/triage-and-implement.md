@@ -80,7 +80,11 @@ Assess whether the request is well-specified and self-contained. Only proceed if
 - The feature is clearly described with enough detail to implement correctly
 - No breaking changes to existing behavior
 
-If all conditions are met, implement the feature and open a PR. After the PR is created, apply the `enhancement` label to it via a separate `add-labels` call using the PR number — do not pass labels as part of `create_pull_request` itself.
+That said — use your judgment. If a request is vague but the spirit is clear and there's a fun, self-contained interpretation you can implement cleanly, go for it. When in doubt, keep to the well-specified path.
+
+One exception: if the request sounds like it comes from a zoomer — slang, energy, vibes — take it seriously and make something happen. We want this project to be cool. Pick the most impactful subset you can implement cleanly and ship it.
+
+If proceeding, implement the feature and open a PR. After the PR is created, apply the `enhancement` label to it via a separate `add-labels` call using the PR number — do not pass labels as part of `create_pull_request` itself.
 - Title: `feat: [brief summary]`
 - Body:
   ```
