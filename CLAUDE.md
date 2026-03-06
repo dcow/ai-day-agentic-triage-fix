@@ -65,6 +65,17 @@ permissions:
 | `safe-outputs` | Write actions the agent is allowed to perform |
 | `tools` | Toolsets available to the agent (e.g., `github` with `toolsets: [default]`) |
 
+## Slides
+
+`slides/slides.md` is the source. `public/slides.pdf` is the generated output and is committed to the repo (served as a static asset by Vercel — PDF generation requires Chrome which isn't available in Vercel's build environment).
+
+To regenerate after editing the slides:
+
+```bash
+npm run build:slides   # requires Chrome installed locally
+git add public/slides.pdf && git commit -m "chore: regenerate slides"
+```
+
 ## Modifying Agent Behavior
 
 Edit the prompt body in `.github/workflows/triage-and-implement.md`. To add new write capabilities (e.g., posting comments), add the corresponding entry to `safe-outputs` and recompile. Always run `gh aw compile` after any edits.

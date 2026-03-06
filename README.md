@@ -28,6 +28,15 @@ Open [http://localhost:3000](http://localhost:3000) to see the app. The main pag
 npm run build
 ```
 
+### Slides
+
+The presentation PDF (`public/slides.pdf`) is committed to the repo and served as a static asset. To regenerate it after editing `slides/slides.md`, you need [Chrome](https://www.google.com/chrome/) installed, then:
+
+```bash
+npm run build:slides
+git add public/slides.pdf && git commit -m "chore: regenerate slides"
+```
+
 ### Linting
 
 ```bash
