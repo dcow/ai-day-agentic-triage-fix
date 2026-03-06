@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "node scripts/build-slides.mjs && next build",
+    "build": "npx playwright install --with-deps chromium && node scripts/build-slides.mjs && next build",
     "start": "next start",
     "lint": "eslint"
   },
