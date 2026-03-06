@@ -107,9 +107,10 @@ body {
   border-radius: 50%;
   cursor: pointer;
   transition: all 0.2s ease;
-  position: relative;
   flex-shrink: 0;
   background: transparent;
+  display: grid;
+  place-content: center;
 }
 
 .todo-checkbox:checked {
@@ -119,15 +120,14 @@ body {
 }
 
 .todo-checkbox:checked::after {
-  content: '✓';
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  color: white;
-  font-size: 12px;
-  font-weight: 700;
-  line-height: 1;
+  content: '';
+  display: block;
+  width: 5px;
+  height: 9px;
+  border: 2px solid white;
+  border-top: none;
+  border-left: none;
+  transform: rotate(45deg) translateY(-1px);
 }
 
 .todo-checkbox:hover:not(:checked) {
