@@ -182,7 +182,7 @@ Not a linter. It reads the full diff **and the surrounding context** of changed 
 
 - `high` → `risk:high` label, requests changes
 - `medium` / `low` → `risk:low` label, leaves a comment
-- Nothing found → *"No significant risks identified."* — and it means it
+- Nothing found → *"No significant risks identified."* — and it means it. No fabricated risks to pad the review.
 
 Key instruction: **don't invent risks to appear thorough.** A clean PR gets a clean review.
 

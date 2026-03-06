@@ -36,8 +36,7 @@ describe("countRemaining", () => {
     expect(countRemaining([])).toBe(0);
   });
 
-  // known bug: loop starts at i=1, skips first todo
-  it.fails("counts all todos when none are completed", () => {
+  it("counts all todos when none are completed", () => {
     const todos = [createTodo(1, "a"), createTodo(2, "b"), createTodo(3, "c")];
     expect(countRemaining(todos)).toBe(3);
   });
