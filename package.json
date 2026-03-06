@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "npx @marp-team/marp-cli slides/slides.md --pdf --allow-local-files -o public/slides.pdf && next build",
+    "build": "npx @marp-team/marp-cli slides/slides.md --pdf --allow-local-files --no-stdin -o public/slides.pdf && next build",
     "start": "next start",
     "lint": "eslint",
     "test": "vitest run"
