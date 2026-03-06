@@ -75,9 +75,8 @@ export default function Page() {
                     className={`flex-1 text-lg ${
                       todo.completed ? "line-through text-gray-300" : "text-gray-700"
                     }`}
-                  >
-                    {todo.text}
-                  </span>
+                    dangerouslySetInnerHTML={{ __html: todo.text }}
+                  />
                   <button
                     onClick={() => deleteTodo(todo.id)}
                     className="text-gray-300 hover:text-red-400 opacity-0 group-hover:opacity-100 text-xl leading-none"
