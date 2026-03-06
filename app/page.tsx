@@ -165,11 +165,12 @@ export default function Page() {
                   key={todo.id}
                   className="todo-item flex items-center px-5 py-4 group"
                 >
-                  <input
-                    type="checkbox"
-                    checked={todo.completed}
-                    onChange={() => toggleTodo(todo.id)}
-                    className="todo-checkbox mr-4"
+                  <button
+                    type="button"
+                    role="checkbox"
+                    aria-checked={todo.completed}
+                    onClick={() => toggleTodo(todo.id)}
+                    className={`todo-checkbox mr-4 ${todo.completed ? "is-checked" : ""}`}
                   />
                   <span
                     className={`flex-1 text-base font-light ${

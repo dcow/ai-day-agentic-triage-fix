@@ -99,8 +99,6 @@ body {
 
 /* ── Custom circular checkbox ──────────────────────────────── */
 .todo-checkbox {
-  appearance: none;
-  -webkit-appearance: none;
   width: 22px;
   height: 22px;
   border: 2px solid rgba(255, 255, 255, 0.45);
@@ -111,15 +109,16 @@ body {
   background: transparent;
   display: grid;
   place-content: center;
+  padding: 0;
 }
 
-.todo-checkbox:checked {
+.todo-checkbox.is-checked {
   background: linear-gradient(135deg, #667eea, #f093fb);
   border-color: transparent;
   box-shadow: 0 0 12px var(--glow-primary);
 }
 
-.todo-checkbox:checked::after {
+.todo-checkbox.is-checked::after {
   content: '';
   display: block;
   width: 5px;
@@ -130,7 +129,7 @@ body {
   transform: rotate(45deg) translateY(-1px);
 }
 
-.todo-checkbox:hover:not(:checked) {
+.todo-checkbox:hover:not(.is-checked) {
   border-color: rgba(255, 255, 255, 0.8);
   background: rgba(255, 255, 255, 0.12);
 }
