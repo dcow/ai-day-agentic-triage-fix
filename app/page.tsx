@@ -116,6 +116,28 @@ export default function Page() {
           </div>
         )}
       </div>
+      <footer className="mt-16 text-center text-xs text-gray-400">
+        <p>
+          Part of an{" "}
+          <a
+            href="https://github.com/dcow/ai-day-agentic-triage-fix"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="underline hover:text-gray-600"
+          >
+            AI day agentic triage demo
+          </a>
+          {" · "}
+          <a
+            href="/slides.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="underline hover:text-gray-600"
+          >
+            view slides
+          </a>
+        </p>
+      </footer>
     </main>
   );
 }
