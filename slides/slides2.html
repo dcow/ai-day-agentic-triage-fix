@@ -205,13 +205,13 @@
 <!-- SLIDE 3: What we built -->
 <div class="slide light">
   <div class="divider"></div>
-  <h1>Two workflows, one agentic loop</h1>
-  <div style="margin-top:20px">
+  <h1>Three workflows, one agentic loop</h1>
+  <div style="margin-top:16px">
     <div class="step">
       <div class="step-num">1</div>
       <div class="step-body">
         <strong>Issue opened → triage-and-implement</strong>
-        <span>Classifies as bug / enhancement / question / needs-more-info. For bugs and enhancements: reads source, investigates, opens a <code>fix:</code> or <code>feat:</code> PR if confident. Always posts a triage summary.</span>
+        <span>Classifies as bug / enhancement / question / needs-more-info. For bugs and enhancements: reads source, investigates, opens a <code>fix:</code> or <code>feat:</code> PR with the correct label if confident. Always posts a triage summary.</span>
       </div>
     </div>
     <div class="step">
@@ -221,8 +221,15 @@
         <span>Reads the PR diff and comment thread, applies the requested change, pushes a new commit, replies with a summary. Triggered only on PR comments — not issues.</span>
       </div>
     </div>
+    <div class="step">
+      <div class="step-num">3</div>
+      <div class="step-body">
+        <strong>PR opened → pr-risk-review</strong>
+        <span>Skeptical second-opinion review. Reads the full diff and surrounding file context, flags logic errors, edge cases, regressions, and API contract changes. Submits a <code>REQUEST_CHANGES</code> review on high severity, <code>COMMENT</code> otherwise.</span>
+      </div>
+    </div>
   </div>
-  <p style="margin-top:24px; color:#64748b; font-size:0.95em">Both run on <strong>Claude Sonnet</strong> via the <span class="badge">engine: claude</span> field. The target codebase is a small Next.js todo app — intentional bugs included.</p>
+  <p style="margin-top:16px; color:#64748b; font-size:0.95em">All three run on <strong>Claude Sonnet</strong> via the <span class="badge">engine: claude</span> field. The target codebase is a small Next.js todo app.</p>
 </div>
 
 <!-- SLIDE 4: gh-aw in one slide -->
@@ -331,7 +338,41 @@ tools:
   </div>
 </div>
 
-<!-- SLIDE 8: What we learned -->
+<!-- SLIDE 8: PR Risk Review -->
+<div class="slide light">
+  <div class="divider"></div>
+  <h1>Automated risk review: a skeptical second opinion</h1>
+  <div class="grid-2" style="margin-top:8px">
+    <div>
+      <p>Every PR — whether opened by a human or by the triage agent itself — gets reviewed by a second Claude instance acting as a skeptical senior engineer.</p>
+      <p style="margin-top:0.8em">It reads the full diff <em>and</em> the surrounding context of changed files. Not just "what changed" but "what could this break."</p>
+      <div class="card" style="margin-top:16px; background:#fef2f2; border-color:#fecaca">
+        <h2 style="color:#dc2626">XSS in the wild</h2>
+        <p style="font-size:0.92em">We opened a PR swapping <code>{todo.text}</code> for <code>dangerouslySetInnerHTML</code>. The reviewer flagged it as <strong>high severity</strong> and submitted <code>REQUEST_CHANGES</code> — blocking the merge.</p>
+      </div>
+    </div>
+    <div>
+      <pre style="font-size:0.75em"><code>safe-outputs:
+  submit-pull-request-review:
+
+# Reviews for:
+# - Logic errors & off-by-one
+# - Edge cases (null, empty, concurrent)
+# - Regressions (callers, invariants)
+# - Error handling gaps
+# - API/contract changes
+#
+# high   → REQUEST_CHANGES
+# medium → COMMENT
+# low    → COMMENT
+# none   → "No significant risks
+#           identified."</code></pre>
+      <p style="font-size:0.9em; color:#64748b; margin-top:12px">Critically: it's told to say nothing if nothing is wrong. No invented risks to appear thorough.</p>
+    </div>
+  </div>
+</div>
+
+<!-- SLIDE 9: What we learned -->
 <div class="slide light">
   <div class="divider"></div>
   <h1>Key insights</h1>
@@ -341,9 +382,13 @@ tools:
         <h2>Safe outputs = the right abstraction</h2>
         <p>Declaring write permissions upfront in config — not prose — means the model can't reason its way into doing something it wasn't allowed. Constraints enforced by the framework, not the prompt.</p>
       </div>
+      <div class="card" style="margin-bottom:16px">
+        <h2>Reactions solve "dead silence"</h2>
+        <p>Safe outputs batch at the end — no mid-run feedback. The <code>reaction:</code> field fires immediately at activation (👀 on issues, 🚀 on <code>/fix</code>) so users know the agent is working.</p>
+      </div>
       <div class="card">
         <h2>Don't fight the batching</h2>
-        <p>All safe outputs execute at the end. We tried acknowledging comments mid-run — it's not possible in a single workflow. Accept it and design for it rather than splitting workflows unnecessarily.</p>
+        <p>All safe outputs execute at the end. Accept it and design for it — reactions cover the UX gap without splitting workflows unnecessarily.</p>
       </div>
     </div>
     <div>
@@ -351,9 +396,13 @@ tools:
         <h2>Predicate filtering &gt; prompt filtering</h2>
         <p>Use <code>slash_command</code> triggers and the right event types to gate agent invocation at the Actions level. Prompt-level bail is a last resort — by then you've already paid the cost.</p>
       </div>
+      <div class="card" style="margin-bottom:16px">
+        <h2>Two Claudes &gt; one Claude</h2>
+        <p>The triage agent opens a PR; the risk reviewer catches what it missed. Separate agents with separate prompts and separate trust levels are more robust than one agent doing everything.</p>
+      </div>
       <div class="card">
-        <h2>Claude Code for implementation, not just triage</h2>
-        <p>The same agent that classifies issues can write production code and open PRs. Don't undersell the engine — give it implementation tasks, not just classification ones.</p>
+        <h2>Implementation, not just triage</h2>
+        <p>The same agent that classifies issues writes production code and opens PRs. Don't undersell the engine — give it implementation tasks.</p>
       </div>
     </div>
   </div>
@@ -368,7 +417,7 @@ tools:
   <div style="margin-top:36px; display:flex; gap:16px; flex-wrap:wrap">
     <span class="pill">Issues → PRs automatically</span>
     <span class="pill green">PR comments → new commits</span>
-    <span class="pill purple">Full audit trail</span>
+    <span class="pill purple">Risk review on every PR</span>
     <span class="pill amber">No agent hallucinations into prod</span>
   </div>
   <div class="tag">ai-day-agentic-triage-fix.vercel.app</div>
