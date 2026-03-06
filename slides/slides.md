@@ -101,7 +101,7 @@ style: |
 
 <!-- _class: lead -->
 
-# From filed issue to merged PR
+# From filed issue to mergeable PR
 
 **AI Day — GitHub Agentic Workflows with Claude**
 
