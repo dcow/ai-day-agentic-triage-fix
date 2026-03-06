@@ -168,6 +168,28 @@ export default function Page() {
           </p>
         )}
       </div>
+
+      {/* Bottom links */}
+      <div className="mt-auto pt-10 flex items-center justify-center gap-6 text-white/35 text-xs">
+        <a
+          href="https://github.com/dcow/ai-day-agentic-triage-fix"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="hover:text-white/70"
+          style={{ transition: "color 0.2s ease" }}
+        >
+          source ↗
+        </a>
+        <a
+          href="/slides.pdf"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="hover:text-white/70"
+          style={{ transition: "color 0.2s ease" }}
+        >
+          slides ↗
+        </a>
+      </div>
     </div>
   );
 }
