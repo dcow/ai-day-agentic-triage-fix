@@ -10,6 +10,7 @@ permissions:
   pull-requests: read
 safe-outputs:
   submit-pull-request-review:
+  add-labels:
 tools:
   github:
     toolsets: [default]
@@ -63,3 +64,9 @@ If nothing material was found, replace the issues list with:
 **Review event:**
 - If any `high` severity issues were found: submit as `REQUEST_CHANGES`
 - Otherwise: submit as `COMMENT`
+
+## Step 4: Label the PR
+
+After submitting the review, apply a label to the PR based on the outcome:
+- If any `high` severity issues were found: apply the `risk:high` label
+- Otherwise: apply the `risk:low` label
