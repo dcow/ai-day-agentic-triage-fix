@@ -116,6 +116,29 @@ export default function Page() {
           </div>
         )}
       </div>
+
+      {/* Project context */}
+      <p className="mt-10 text-center text-xs text-gray-400">
+        Part of an{" "}
+        <a
+          href="https://github.com/dcow/ai-day-agentic-triage-fix"
+          className="underline hover:text-gray-500"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          AI Day example project
+        </a>{" "}
+        demonstrating agentic GitHub issue triage.{" "}
+        <a
+          href="/slides.pdf"
+          className="underline hover:text-gray-500"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          View slides
+        </a>
+        .
+      </p>
     </main>
   );
 }
