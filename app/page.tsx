@@ -56,6 +56,28 @@ export default function Page() {
           </button>
         </div>
 
+        {/* Project context */}
+        <p className="text-center text-xs text-gray-400 mt-4">
+          Part of the{" "}
+          <a
+            href="https://github.com/dcow/ai-day-agentic-triage-fix"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="underline hover:text-gray-600"
+          >
+            AI Day agentic triage demo
+          </a>
+          {" "}·{" "}
+          <a
+            href="/slides.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="underline hover:text-gray-600"
+          >
+            view slides
+          </a>
+        </p>
+
         {/* List */}
         {todos.length > 0 && (
           <div className="bg-white shadow mt-0 border-t border-gray-100">
