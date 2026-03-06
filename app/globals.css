@@ -1,1 +1,159 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap');
+
 @import "tailwindcss";
+
+/* ── CSS Variables ─────────────────────────────────────────── */
+:root {
+  --glass-bg: rgba(255, 255, 255, 0.15);
+  --glass-border: rgba(255, 255, 255, 0.3);
+  --glass-bg-item: rgba(255, 255, 255, 0.08);
+  --glow-primary: rgba(102, 126, 234, 0.6);
+  --glow-secondary: rgba(240, 147, 251, 0.4);
+}
+
+.dark {
+  --glass-bg: rgba(0, 0, 0, 0.25);
+  --glass-border: rgba(255, 255, 255, 0.12);
+  --glass-bg-item: rgba(0, 0, 0, 0.15);
+  --glow-primary: rgba(150, 100, 255, 0.6);
+  --glow-secondary: rgba(200, 100, 255, 0.3);
+}
+
+/* ── Base ──────────────────────────────────────────────────── */
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+/* ── Animated gradient background ─────────────────────────── */
+@keyframes gradientShift {
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.animated-bg {
+  background: linear-gradient(-45deg, #667eea, #764ba2, #f093fb, #4facfe, #a8edea);
+  background-size: 400% 400%;
+  animation: gradientShift 12s ease infinite;
+  min-height: 100vh;
+}
+
+.dark .animated-bg {
+  background: linear-gradient(-45deg, #0f0c29, #302b63, #1a1a2e, #24243e, #1e1b4b);
+  background-size: 400% 400%;
+  animation: gradientShift 12s ease infinite;
+}
+
+/* ── Glassmorphism card ────────────────────────────────────── */
+.glass-card {
+  background: var(--glass-bg);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid var(--glass-border);
+}
+
+/* ── Todo item fade-in + hover scale ──────────────────────── */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.todo-item {
+  animation: fadeInUp 0.25s ease-out;
+  transition: transform 0.15s ease, box-shadow 0.15s ease, background-color 0.2s ease;
+}
+
+.todo-item:hover {
+  transform: scale(1.012);
+  box-shadow: 0 4px 24px var(--glow-primary);
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.dark .todo-item:hover {
+  background-color: rgba(255, 255, 255, 0.06);
+}
+
+/* ── Gradient button ───────────────────────────────────────── */
+.btn-gradient {
+  background: linear-gradient(135deg, #667eea 0%, #f093fb 100%);
+  transition: box-shadow 0.3s ease, transform 0.2s ease;
+}
+
+.btn-gradient:hover {
+  box-shadow: 0 0 20px var(--glow-primary), 0 0 40px var(--glow-secondary);
+  transform: translateY(-1px);
+}
+
+.btn-gradient:active {
+  transform: translateY(0);
+}
+
+/* ── Pulse glow on the add button when input has content ───── */
+@keyframes pulseGlow {
+  0%, 100% { box-shadow: 0 0 10px var(--glow-primary); }
+  50%       { box-shadow: 0 0 28px var(--glow-secondary), 0 0 56px var(--glow-primary); }
+}
+
+.pulse-glow {
+  animation: pulseGlow 2s ease-in-out infinite;
+}
+
+/* ── Custom circular checkbox ──────────────────────────────── */
+.todo-checkbox {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 22px;
+  height: 22px;
+  border: 2px solid rgba(255, 255, 255, 0.45);
+  border-radius: 50%;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  position: relative;
+  flex-shrink: 0;
+  background: transparent;
+}
+
+.todo-checkbox:checked {
+  background: linear-gradient(135deg, #667eea, #f093fb);
+  border-color: transparent;
+  box-shadow: 0 0 12px var(--glow-primary);
+}
+
+.todo-checkbox:checked::after {
+  content: '✓';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.todo-checkbox:hover:not(:checked) {
+  border-color: rgba(255, 255, 255, 0.8);
+  background: rgba(255, 255, 255, 0.12);
+}
+
+/* ── Mode toggle pill ──────────────────────────────────────── */
+.mode-toggle {
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 50px;
+  color: white;
+  cursor: pointer;
+  transition: background 0.3s ease, box-shadow 0.3s ease;
+}
+
+.mode-toggle:hover {
+  background: rgba(255, 255, 255, 0.25);
+  box-shadow: 0 0 16px rgba(255, 255, 255, 0.2);
+}
+
+/* ── Smooth theme transitions ──────────────────────────────── */
+*, *::before, *::after {
+  transition: background-color 0.3s ease, border-color 0.2s ease;
+}

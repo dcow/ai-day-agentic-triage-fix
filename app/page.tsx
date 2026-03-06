@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { type FilterMode, type Todo, countRemaining, createTodo, filterTodos } from "@/lib/todos";
 
 export default function Page() {
@@ -8,6 +8,20 @@ export default function Page() {
   const [input, setInput] = useState("");
   const [filter, setFilter] = useState<FilterMode>("all");
   const [nextId, setNextId] = useState(1);
+  const [darkMode, setDarkMode] = useState(false);
+
+  useEffect(() => {
+    const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+    setDarkMode(prefersDark);
+  }, []);
+
+  useEffect(() => {
+    if (darkMode) {
+      document.documentElement.classList.add("dark");
+    } else {
+      document.documentElement.classList.remove("dark");
+    }
+  }, [darkMode]);
 
   function addTodo() {
     const text = input.trim();
@@ -35,52 +49,78 @@ export default function Page() {
   const remaining = countRemaining(todos);
 
   return (
-    <main className="min-h-screen bg-gray-100 flex flex-col items-center pt-20 px-4">
+    <div className="animated-bg min-h-screen flex flex-col items-center pt-16 px-4 pb-12">
+
+      {/* Dark / Light mode toggle */}
+      <div className="absolute top-4 right-4">
+        <button
+          onClick={() => setDarkMode((d) => !d)}
+          className="mode-toggle px-4 py-2 text-sm font-medium"
+          aria-label="Toggle dark mode"
+        >
+          {darkMode ? "☀️ Light" : "🌙 Dark"}
+        </button>
+      </div>
+
       <div className="w-full max-w-md">
-        <h1 className="text-4xl font-thin text-center text-gray-600 mb-6">todos</h1>
+        <h1 className="text-5xl font-light text-center text-white/90 mb-1 tracking-widest drop-shadow-lg">
+          todos
+        </h1>
+        <p className="text-center text-white/45 text-xs mb-8 tracking-widest uppercase">
+          what&apos;s on the agenda?
+        </p>
 
         {/* Input */}
-        <div className="flex bg-white shadow">
-          <input
-            className="flex-1 px-4 py-3 text-lg outline-none placeholder-gray-300"
-            placeholder="What needs to be done?"
-            value={input}
-            onChange={(e) => setInput(e.target.value)}
-            onKeyDown={(e) => e.key === "Enter" && addTodo()}
-          />
-          <button
-            onClick={addTodo}
-            className="px-4 text-gray-400 hover:text-gray-600"
-          >
-            Add
-          </button>
+        <div className="glass-card rounded-2xl overflow-hidden shadow-2xl mb-4">
+          <div className="flex items-center px-2">
+            <input
+              className="flex-1 px-4 py-4 text-base bg-transparent outline-none text-white placeholder-white/35 font-light"
+              placeholder="add something to do..."
+              value={input}
+              onChange={(e) => setInput(e.target.value)}
+              onKeyDown={(e) => e.key === "Enter" && addTodo()}
+            />
+            <button
+              onClick={addTodo}
+              className={`btn-gradient mx-2 px-5 py-2.5 rounded-xl text-white font-semibold text-sm ${input.trim() ? "pulse-glow" : ""}`}
+            >
+              Add ✦
+            </button>
+          </div>
         </div>
 
-        {/* List */}
+        {/* Todo list */}
         {todos.length > 0 && (
-          <div className="bg-white shadow mt-0 border-t border-gray-100">
-            <ul>
+          <div className="glass-card rounded-2xl overflow-hidden shadow-2xl">
+            <ul className="divide-y divide-white/10">
               {visible.map((todo) => (
                 <li
                   key={todo.id}
-                  className="flex items-center px-4 py-3 border-b border-gray-100 group"
+                  className="todo-item flex items-center px-5 py-4 group"
                 >
                   <input
                     type="checkbox"
                     checked={todo.completed}
                     onChange={() => toggleTodo(todo.id)}
-                    className="mr-3 w-5 h-5 cursor-pointer"
+                    className="todo-checkbox mr-4"
                   />
                   <span
-                    className={`flex-1 text-lg ${
-                      todo.completed ? "line-through text-gray-300" : "text-gray-700"
+                    className={`flex-1 text-base font-light ${
+                      todo.completed
+                        ? "line-through text-white/30"
+                        : "text-white/90"
                     }`}
+                    style={{ transition: "color 0.3s ease, text-decoration 0.3s ease" }}
                   >
                     {todo.text}
                   </span>
                   <button
                     onClick={() => deleteTodo(todo.id)}
-                    className="text-gray-300 hover:text-red-400 opacity-0 group-hover:opacity-100 text-xl leading-none"
+                    className="text-white/20 hover:text-red-400 opacity-0 group-hover:opacity-100 text-2xl leading-none ml-2"
+                    style={{ transition: "color 0.2s ease, opacity 0.2s ease, transform 0.2s ease" }}
+                    onMouseEnter={(e) => (e.currentTarget.style.transform = "scale(1.3)")}
+                    onMouseLeave={(e) => (e.currentTarget.style.transform = "scale(1)")}
+                    aria-label="Delete todo"
                   >
                     ×
                   </button>
@@ -89,18 +129,21 @@ export default function Page() {
             </ul>
 
             {/* Footer */}
-            <div className="flex items-center justify-between px-4 py-2 text-sm text-gray-400">
-              <span>{remaining} item{remaining !== 1 ? "s" : ""} left</span>
-              <div className="flex gap-2">
+            <div className="flex items-center justify-between px-5 py-3 text-sm text-white/45 border-t border-white/10">
+              <span className="font-light text-xs">
+                {remaining} item{remaining !== 1 ? "s" : ""} left
+              </span>
+              <div className="flex gap-1">
                 {(["all", "active", "completed"] as FilterMode[]).map((f) => (
                   <button
                     key={f}
                     onClick={() => setFilter(f)}
-                    className={`px-2 py-0.5 rounded border ${
+                    className={`px-3 py-1 rounded-full text-xs font-medium cursor-pointer ${
                       filter === f
-                        ? "border-red-300 text-red-400"
-                        : "border-transparent hover:border-gray-300"
+                        ? "bg-white/20 text-white border border-white/30"
+                        : "text-white/40 hover:text-white/70 hover:bg-white/10"
                     }`}
+                    style={{ transition: "all 0.2s ease" }}
                   >
                     {f.charAt(0).toUpperCase() + f.slice(1)}
                   </button>
@@ -108,14 +151,22 @@ export default function Page() {
               </div>
               <button
                 onClick={clearCompleted}
-                className="hover:text-gray-600"
+                className="text-white/40 hover:text-white/70 text-xs cursor-pointer"
+                style={{ transition: "color 0.2s ease" }}
               >
-                Clear completed
+                Clear done
               </button>
             </div>
           </div>
         )}
+
+        {/* Empty state */}
+        {todos.length === 0 && (
+          <p className="text-center text-white/30 text-sm mt-14 font-light tracking-wide">
+            nothing here yet — add something ✦
+          </p>
+        )}
       </div>
-    </main>
+    </div>
   );
 }
