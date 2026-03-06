@@ -107,26 +107,19 @@ body {
   transition: all 0.2s ease;
   flex-shrink: 0;
   background: transparent;
-  display: grid;
-  place-content: center;
+  appearance: none;
+  -webkit-appearance: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   padding: 0;
+  outline: none;
 }
 
 .todo-checkbox.is-checked {
   background: linear-gradient(135deg, #667eea, #f093fb);
   border-color: transparent;
   box-shadow: 0 0 12px var(--glow-primary);
-}
-
-.todo-checkbox.is-checked::after {
-  content: '';
-  display: block;
-  width: 5px;
-  height: 9px;
-  border: 2px solid white;
-  border-top: none;
-  border-left: none;
-  transform: rotate(45deg) translateY(-1px);
 }
 
 .todo-checkbox:hover:not(.is-checked) {
