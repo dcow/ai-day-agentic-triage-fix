@@ -7,5 +7,8 @@ const chromePath = require("puppeteer").executablePath();
 
 execSync(
   `marp slides/slides.md --pdf --allow-local-files --no-stdin --browser-path="${chromePath}" -o public/slides.pdf`,
-  { stdio: "inherit" }
+  {
+    stdio: "inherit",
+    env: { ...process.env, CHROME_NO_SANDBOX: "1" },
+  }
 );
