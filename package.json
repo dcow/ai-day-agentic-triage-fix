@@ -4,18 +4,16 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "npx playwright install chromium && node scripts/build-slides.mjs && next build",
+    "build": "npx @marp-team/marp-cli slides/slides.md --pdf --allow-local-files -o public/slides.pdf && next build",
     "start": "next start",
     "lint": "eslint"
   },
   "dependencies": {
     "next": "16.1.6",
-    "playwright": "^1.58.2",
     "react": "19.2.3",
     "react-dom": "19.2.3"
   },
   "devDependencies": {
-    "@marp-team/marp-core": "^4.3.0",
     "@tailwindcss/postcss": "^4",
     "@types/node": "^20",
     "@types/react": "^19",
