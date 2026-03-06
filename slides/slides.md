@@ -7,57 +7,96 @@ style: |
     font-family: system-ui, -apple-system, sans-serif;
     font-size: 1.1em;
     padding: 48px 64px;
+    background: #fafaf9;
+    color: #1c1917;
   }
+
+  /* ── Lead / title slides ── */
   section.lead {
-    background: #0f172a;
-    color: #f8fafc;
+    background: #0c1122;
+    color: #f1f5f9;
     justify-content: center;
   }
   section.lead h1 {
     font-size: 2.4em;
     line-height: 1.1;
-    color: #f8fafc;
+    color: #f1f5f9;
     margin-bottom: 0.4em;
   }
+  section.lead h2 { color: #f1f5f9; border-color: #f59e0b; }
   section.lead p { color: #94a3b8; font-size: 1.1em; margin: 0.2em 0; }
-  section.lead strong { color: #38bdf8; }
+  section.lead strong { color: #f59e0b; }
+  section.lead code { background: #1e2d40; color: #fbbf24; }
+
+  /* ── Dark slides ── */
   section.dark {
-    background: #0f172a;
-    color: #f8fafc;
+    background: #0c1122;
+    color: #f1f5f9;
   }
-  section.dark h2 { color: #f8fafc; border-color: #38bdf8; }
-  section.dark p, section.dark li { color: #94a3b8; }
-  section.dark strong { color: #f8fafc; }
-  section.dark code { background: #1e293b; color: #7dd3fc; }
+  section.dark h2 { color: #f1f5f9; border-color: #f59e0b; }
+  section.dark p, section.dark li { color: #cbd5e1; }
+  section.dark strong { color: #f1f5f9; }
+  section.dark em { color: #f59e0b; }
+  section.dark code { background: #1e2d40; color: #fbbf24; }
+
+  /* ── Headings ── */
   h2 {
     font-size: 1.5em;
-    color: #0f172a;
-    border-bottom: 3px solid #0ea5e9;
+    color: #1c1917;
+    border-bottom: 3px solid #f59e0b;
     padding-bottom: 0.2em;
     margin-bottom: 0.6em;
   }
+
+  /* ── Typography ── */
   p { line-height: 1.65; margin: 0.4em 0; }
   li { line-height: 1.8; }
-  strong { color: #0f172a; }
-  em { color: #0ea5e9; font-style: normal; font-weight: 600; }
+  strong { color: #1c1917; }
+  em { color: #b45309; font-style: normal; font-weight: 600; }
+
+  /* ── Inline code ── */
   code {
+    font-family: 'JetBrains Mono', 'Cascadia Code', 'Fira Code', ui-monospace, monospace;
     font-size: 0.82em;
-    background: #f1f5f9;
-    color: #be185d;
-    padding: 1px 5px;
+    background: #fef3c7;
+    color: #92400e;
+    padding: 2px 6px;
     border-radius: 4px;
   }
-  pre { background: #0f172a; border-radius: 8px; }
+
+  /* ── Code blocks ── */
+  pre {
+    background: #0f1923;
+    border-radius: 8px;
+    border-left: 3px solid #f59e0b;
+  }
   pre code {
     background: transparent;
     color: #e2e8f0;
     font-size: 0.78em;
     padding: 0;
+    border-radius: 0;
   }
-  li { line-height: 1.75; }
+
+  /* ── Syntax token colors ── */
+  .hljs-comment, .hljs-quote { color: #64748b; font-style: italic; }
+  .hljs-attr { color: #f472b6; }
+  .hljs-string, .hljs-doctag { color: #86efac; }
+  .hljs-keyword, .hljs-selector-tag { color: #c084fc; }
+  .hljs-literal, .hljs-number { color: #fb923c; }
+  .hljs-built_in, .hljs-type { color: #67e8f9; }
+  .hljs-variable, .hljs-template-variable { color: #fbbf24; }
+  .hljs-title, .hljs-section { color: #fbbf24; }
+  .hljs-name { color: #f472b6; }
+  .hljs-punctuation { color: #94a3b8; }
+
+  /* ── Tables ── */
   table { font-size: 0.88em; border-collapse: collapse; width: 100%; }
-  th { background: #f1f5f9; }
-  td, th { padding: 7px 14px; border: 1px solid #e2e8f0; }
+  th { background: #fef3c7; color: #78350f; font-weight: 600; }
+  td, th { padding: 7px 14px; border: 1px solid #e7e5e4; }
+
+  /* ── Page numbers ── */
+  section::after { color: #a8a29e; font-size: 0.75em; }
 ---
 
 <!-- _class: lead -->
