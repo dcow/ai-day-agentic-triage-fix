@@ -12,6 +12,7 @@ export default function Page() {
   // Track whether the mount effect has run, so the class-sync effect skips the
   // initial render and doesn't remove the class set by the layout inline script.
   const didMount = useRef(false);
+  const canvasRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
     // On mount, read system preference and set state + class together so there
@@ -24,6 +25,67 @@ export default function Page() {
   useEffect(() => {
     if (!didMount.current) { didMount.current = true; return; }
     document.documentElement.classList.toggle("dark", darkMode);
+  }, [darkMode]);
+
+  // Ambient particle background
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return;
+
+    type Particle = { x: number; y: number; size: number; speed: number; opacity: number; drift: number };
+    let animId: number;
+    const particles: Particle[] = [];
+
+    function resize() {
+      canvas!.width = window.innerWidth;
+      canvas!.height = window.innerHeight;
+    }
+
+    function spawnParticles() {
+      particles.length = 0;
+      const count = Math.max(40, Math.floor((canvas!.width * canvas!.height) / 12000));
+      for (let i = 0; i < count; i++) {
+        particles.push({
+          x: Math.random() * canvas!.width,
+          y: Math.random() * canvas!.height,
+          size: Math.random() * 2 + 0.5,
+          speed: Math.random() * 0.2 + 0.05,
+          opacity: Math.random() * 0.35 + 0.08,
+          drift: (Math.random() - 0.5) * 0.12,
+        });
+      }
+    }
+
+    function handleResize() { resize(); spawnParticles(); }
+    resize();
+    spawnParticles();
+    window.addEventListener("resize", handleResize);
+
+    const color = darkMode ? "200, 190, 255" : "102, 80, 200";
+
+    function animate() {
+      ctx!.clearRect(0, 0, canvas!.width, canvas!.height);
+      for (const p of particles) {
+        p.y -= p.speed;
+        p.x += p.drift;
+        if (p.y < -10) { p.y = canvas!.height + 10; p.x = Math.random() * canvas!.width; }
+        if (p.x < -10) p.x = canvas!.width + 10;
+        if (p.x > canvas!.width + 10) p.x = -10;
+        ctx!.beginPath();
+        ctx!.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+        ctx!.fillStyle = `rgba(${color}, ${p.opacity})`;
+        ctx!.fill();
+      }
+      animId = requestAnimationFrame(animate);
+    }
+    animate();
+
+    return () => {
+      cancelAnimationFrame(animId);
+      window.removeEventListener("resize", handleResize);
+    };
   }, [darkMode]);
 
   function addTodo() {
@@ -52,7 +114,9 @@ export default function Page() {
   const remaining = countRemaining(todos);
 
   return (
-    <div className="animated-bg min-h-screen flex flex-col items-center pt-16 px-4 pb-12">
+    <div className="particles-bg min-h-screen">
+      <canvas ref={canvasRef} className="fixed inset-0 w-full h-full pointer-events-none" />
+      <div className="relative z-10 flex flex-col items-center pt-16 px-4 pb-12 min-h-screen">
 
       {/* Dark / Light mode toggle */}
       <div className="absolute top-4 right-4">
@@ -189,6 +253,7 @@ export default function Page() {
         >
           slides ↗
         </a>
+      </div>
       </div>
     </div>
   );
