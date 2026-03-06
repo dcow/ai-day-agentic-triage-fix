@@ -58,14 +58,14 @@ export default function Page() {
 
         {/* Project context */}
         <p className="text-center text-xs text-gray-400 mt-4">
-          Part of the{" "}
+          part of an{" "}
           <a
             href="https://github.com/dcow/ai-day-agentic-triage-fix"
             target="_blank"
             rel="noopener noreferrer"
             className="underline hover:text-gray-600"
           >
-            AI Day agentic triage demo
+            AI day agentic triage demo
           </a>
           {" "}·{" "}
           <a
@@ -74,7 +74,7 @@ export default function Page() {
             rel="noopener noreferrer"
             className="underline hover:text-gray-600"
           >
-            view slides
+            slides
           </a>
         </p>
 
