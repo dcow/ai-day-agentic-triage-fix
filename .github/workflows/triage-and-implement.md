@@ -61,9 +61,8 @@ If a fix is ready, also write a test before opening the PR:
 - Add a comment on the test: `// this test would have failed before this fix`
 - Keep it minimal — one specific case, not exhaustive coverage
 
-Then open a PR with both the fix and the updated test file:
+Then open a PR with both the fix and the updated test file. Do not add labels to the PR — apply labels only to the original issue via `add-labels`. The PR title conveys the type.
 - Title: `fix: [brief summary]`
-- Label: `bug`
 - Body:
   ```
   Closes #<issue-number>
@@ -81,9 +80,8 @@ Assess whether the request is well-specified and self-contained. Only proceed if
 - The feature is clearly described with enough detail to implement correctly
 - No breaking changes to existing behavior
 
-If all conditions are met, implement the feature and open a PR with:
+If all conditions are met, implement the feature and open a PR. Do not add labels to the PR — apply labels only to the original issue via `add-labels`.
 - Title: `feat: [brief summary]`
-- Label: `enhancement`
 - Body:
   ```
   Closes #<issue-number>
