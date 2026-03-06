@@ -111,19 +111,19 @@ No human in the loop.
 
 ---
 
-## The bottleneck is attention, not capability
+## Every team has more issues than bandwidth
 
-Simple bugs that take 10 minutes to fix sit in a backlog for days because nobody's watching.
+Simple bugs that would take 10 minutes to fix sit in the backlog for days — not because nobody cares, but because there's always something more urgent competing for attention.
 
-The pitch: a junior engineer on every new issue, 24/7 — reads it, finds the code, traces the bug, opens a PR — all before the team's morning standup.
+The pitch: an engineer on every new issue, 24/7 — reads it, finds the code, traces the bug, opens a PR — all before the team's morning standup.
 
-And when it opens a PR, a skeptical senior engineer reviews it immediately.
+And when it opens a PR, a skeptical security engineer reviews it immediately.
 
 That's what we built.
 
 ---
 
-## The platform: GitHub Agentic Workflows
+## How it works: GitHub Agentic Workflows
 
 A markdown file = a prompt + a manifest of what the agent is allowed to do.
 
@@ -145,7 +145,7 @@ The agent reads freely during its run. It can only *write* what you listed upfro
 
 ---
 
-## Three workflows
+## We built three of these
 
 | Trigger | Workflow | What it does |
 |---------|----------|--------------|
@@ -157,7 +157,7 @@ They evolved in order — triage first, `/fix` next, risk review last. Each one 
 
 ---
 
-## The happy path
+## What each one actually does
 
 **Issue opened →** classify as bug / enhancement / question / needs-more-info → read the relevant code → fix it → open a PR → post a triage summary. Always, regardless of outcome.
 
@@ -169,33 +169,31 @@ Slash commands gate at the *Actions predicate level* — the agent never spins u
 
 ---
 
-## The safety net
+why ## A second Claude reviews every PR
 
-Every PR — including ones the triage agent opens — gets reviewed by a second Claude acting as a skeptical senior engineer.
+Every PR — including ones the triage agent opens — gets reviewed by a second Claude acting as a skeptical security engineer.
 
 Not a linter. It reads the full diff **and the surrounding context** of changed files: what could this break, not just what changed.
 
-- `high` → `REQUEST_CHANGES` — blocks merge
-- `medium` / `low` → `COMMENT`
+- `high` → `risk:high` label, requests changes
+- `medium` / `low` → `risk:low` label, leaves a comment
 - Nothing found → *"No significant risks identified."* — and it means it
 
 The key prompt instruction: **don't invent risks to appear thorough.** A clean PR gets a clean review.
 
 ---
 
-## Does it actually work?
+## We tried to sneak an XSS past it
 
 We opened a PR titled *"feat: render todo text as HTML for rich formatting support"* — swapping `{todo.text}` for `dangerouslySetInnerHTML={{ __html: todo.text }}`.
 
 Looks like a reasonable feature. Not an obvious attack.
 
-The risk reviewer flagged it as **high severity XSS**, explained the attack vector in plain terms, and submitted `REQUEST_CHANGES`. Merge blocked.
-
-That's the point.
+The risk reviewer flagged it as **high severity XSS**, explained the attack vector in plain terms, and labeled the PR `risk:high`. The vulnerability is visible before anyone reviews or merges it.
 
 ---
 
-## What we actually learned
+## Things we learned building this
 
 **Reactions fix dead silence.** Safe outputs batch at the end — there's no mid-run acknowledgment. `reaction: eyes` fires at activation. Small thing, meaningful difference.
 
@@ -225,13 +223,12 @@ The edges are rough.
 
 <!-- _class: lead -->
 
-## The issue tracker becomes a product spec
+## What if implementation were free?
 
-When the gap between *"file an issue"* and *"running in production"* closes to minutes, the constraint shifts.
+When routine bugs and well-scoped features ship automatically, engineering cycles free up for the work that benefits most from thoughtful input and collaboration — shaping problems well, catching edge cases early, writing issues that are precise enough to act on.
 
-It's no longer developer time. It's **issue quality**.
+A well-shaped issue ships. A vague one gets pushed back immediately.
 
-Well-specified → automatically implemented.
-Vague → asked for more detail.
+The reward for investing in clarity is that the work just gets done.
 
 **Try it:** `dcow/ai-day-agentic-triage-fix`
