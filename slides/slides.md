@@ -217,6 +217,7 @@ The edges are rough.
 - No mid-run job outputs — you can't act on an agent's decision in the same workflow
 - Token identity constraints mean the same account can't open *and* review a PR
 - `GH_AW_CI_TRIGGER_TOKEN` vs `GH_AW_GITHUB_TOKEN` split is underdocumented
+- Slash command predicate doesn't handle `\r\n` line endings from the GitHub web editor
 
 **Worth watching.** The core loop works. The hardening isn't there yet.
 
