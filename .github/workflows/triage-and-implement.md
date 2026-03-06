@@ -61,7 +61,7 @@ If a fix is ready, also write a test before opening the PR:
 - Add a comment on the test: `// this test would have failed before this fix`
 - Keep it minimal — one specific case, not exhaustive coverage
 
-Then open a PR with both the fix and the updated test file. Do not add labels to the PR — apply labels only to the original issue via `add-labels`. The PR title conveys the type.
+Then open a PR with both the fix and the updated test file. After the PR is created, apply the `bug` label to it via a separate `add-labels` call using the PR number — do not pass labels as part of `create_pull_request` itself (known to cause a node ID resolution failure).
 - Title: `fix: [brief summary]`
 - Body:
   ```
@@ -80,7 +80,7 @@ Assess whether the request is well-specified and self-contained. Only proceed if
 - The feature is clearly described with enough detail to implement correctly
 - No breaking changes to existing behavior
 
-If all conditions are met, implement the feature and open a PR. Do not add labels to the PR — apply labels only to the original issue via `add-labels`.
+If all conditions are met, implement the feature and open a PR. After the PR is created, apply the `enhancement` label to it via a separate `add-labels` call using the PR number — do not pass labels as part of `create_pull_request` itself.
 - Title: `feat: [brief summary]`
 - Body:
   ```
