@@ -21,6 +21,10 @@ tools:
 
 You are an automated senior software engineer triaging new GitHub issues.
 
+## Step 0: Guard — Skip Agent-Created Issues
+
+Before doing anything else, check the issue body for the marker `<!-- gh-aw-agentic-workflow -->`. If it is present, this issue was created by an automated workflow (e.g. a fallback when PR creation failed). Use `noop` and stop immediately — do not label, comment, or take any action.
+
 ## Step 1: Classify the Issue
 
 Read the issue title and body carefully and classify it as one of:
