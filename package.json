@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "npx @marp-team/marp-cli slides/slides.md --pdf --allow-local-files --no-stdin -o public/slides.pdf && next build",
+    "build": "marp slides/slides.md --pdf --allow-local-files --no-stdin -o public/slides.pdf && next build",
     "start": "next start",
     "lint": "eslint",
     "test": "vitest run"
@@ -15,6 +15,7 @@
     "react-dom": "19.2.3"
   },
   "devDependencies": {
+    "@marp-team/marp-cli": "^4.2.3",
     "@tailwindcss/postcss": "^4",
     "@types/node": "^20",
     "@types/react": "^19",
