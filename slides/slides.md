@@ -169,7 +169,7 @@ Slash commands gate at the *Actions predicate level* — the agent never spins u
 
 ---
 
-why ## A second Claude reviews every PR
+## A second Claude reviews every PR
 
 Every PR — including ones the triage agent opens — gets reviewed by a second Claude acting as a skeptical security engineer.
 
@@ -179,7 +179,7 @@ Not a linter. It reads the full diff **and the surrounding context** of changed 
 - `medium` / `low` → `risk:low` label, leaves a comment
 - Nothing found → *"No significant risks identified."* — and it means it
 
-The key prompt instruction: **don't invent risks to appear thorough.** A clean PR gets a clean review.
+Key instruction: **don't invent risks to appear thorough.** A clean PR gets a clean review.
 
 ---
 
