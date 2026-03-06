@@ -98,42 +98,52 @@ body {
 }
 
 /* ── Custom circular checkbox ──────────────────────────────── */
-.todo-checkbox {
+.todo-checkbox-wrap {
+  position: relative;
   width: 22px;
   height: 22px;
+  flex-shrink: 0;
+  display: block;
+}
+
+.todo-checkbox {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
   border: 2px solid rgba(255, 255, 255, 0.45);
   border-radius: 50%;
   cursor: pointer;
   transition: background 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
-  flex-shrink: 0;
   background: transparent;
   appearance: none;
   -webkit-appearance: none;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   padding: 0;
   outline: none;
-  overflow: hidden;
 }
 
-.todo-checkbox.is-checked {
+.is-checked .todo-checkbox {
   background: linear-gradient(135deg, #667eea, #f093fb);
   border-color: transparent;
   box-shadow: 0 0 12px var(--glow-primary);
 }
 
-.todo-checkbox:hover:not(.is-checked) {
+.todo-checkbox-wrap:not(.is-checked) .todo-checkbox:hover {
   border-color: rgba(255, 255, 255, 0.8);
   background: rgba(255, 255, 255, 0.12);
 }
 
 .todo-checkmark {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   opacity: 0;
   transition: opacity 0.15s ease;
+  display: block;
 }
 
-.todo-checkbox.is-checked .todo-checkmark {
+.is-checked .todo-checkmark {
   opacity: 1;
 }
 
