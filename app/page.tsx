@@ -172,11 +172,9 @@ export default function Page() {
                     onClick={() => toggleTodo(todo.id)}
                     className={`todo-checkbox mr-4 ${todo.completed ? "is-checked" : ""}`}
                   >
-                    {todo.completed && (
-                      <svg viewBox="0 0 12 10" width="10" height="8" fill="none" aria-hidden="true" style={{ pointerEvents: "none" }}>
-                        <path d="M1 5l3.5 3.5L11 1" stroke="white" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" />
-                      </svg>
-                    )}
+                    <svg viewBox="0 0 12 10" width="10" height="8" fill="none" aria-hidden="true" className="todo-checkmark" style={{ pointerEvents: "none" }}>
+                      <path d="M1 5l3.5 3.5L11 1" stroke="white" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" />
+                    </svg>
                   </button>
                   <span
                     className={`flex-1 text-base font-light ${

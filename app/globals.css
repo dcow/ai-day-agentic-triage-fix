@@ -104,7 +104,7 @@ body {
   border: 2px solid rgba(255, 255, 255, 0.45);
   border-radius: 50%;
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: background 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
   flex-shrink: 0;
   background: transparent;
   appearance: none;
@@ -114,6 +114,7 @@ body {
   justify-content: center;
   padding: 0;
   outline: none;
+  overflow: hidden;
 }
 
 .todo-checkbox.is-checked {
@@ -125,6 +126,15 @@ body {
 .todo-checkbox:hover:not(.is-checked) {
   border-color: rgba(255, 255, 255, 0.8);
   background: rgba(255, 255, 255, 0.12);
+}
+
+.todo-checkmark {
+  opacity: 0;
+  transition: opacity 0.15s ease;
+}
+
+.todo-checkbox.is-checked .todo-checkmark {
+  opacity: 1;
 }
 
 /* ── Mode toggle pill ──────────────────────────────────────── */
