@@ -111,9 +111,9 @@ No human in the loop.
 
 ---
 
-## Bugs don't get fixed because nobody's watching
+## Every team has more issues than bandwidth
 
-Simple bugs that take 10 minutes to fix sit in a backlog for days because nobody's watching.
+Simple bugs that would take 10 minutes to fix sit in the backlog for days — not because nobody cares, but because there's always something more urgent competing for attention.
 
 The pitch: an engineer on every new issue, 24/7 — reads it, finds the code, traces the bug, opens a PR — all before the team's morning standup.
 
