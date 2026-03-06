@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { type FilterMode, type Todo, countRemaining, createTodo, filterTodos } from "@/lib/todos";
 
 export default function Page() {
@@ -9,18 +9,21 @@ export default function Page() {
   const [filter, setFilter] = useState<FilterMode>("all");
   const [nextId, setNextId] = useState(1);
   const [darkMode, setDarkMode] = useState(false);
+  // Track whether the mount effect has run, so the class-sync effect skips the
+  // initial render and doesn't remove the class set by the layout inline script.
+  const didMount = useRef(false);
 
   useEffect(() => {
+    // On mount, read system preference and set state + class together so there
+    // is no intermediate render where the class is absent (eliminates FOUC).
     const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
     setDarkMode(prefersDark);
+    document.documentElement.classList.toggle("dark", prefersDark);
   }, []);
 
   useEffect(() => {
-    if (darkMode) {
-      document.documentElement.classList.add("dark");
-    } else {
-      document.documentElement.classList.remove("dark");
-    }
+    if (!didMount.current) { didMount.current = true; return; }
+    document.documentElement.classList.toggle("dark", darkMode);
   }, [darkMode]);
 
   function addTodo() {
@@ -116,10 +119,8 @@ export default function Page() {
                   </span>
                   <button
                     onClick={() => deleteTodo(todo.id)}
-                    className="text-white/20 hover:text-red-400 opacity-0 group-hover:opacity-100 text-2xl leading-none ml-2"
+                    className="delete-btn text-white/20 hover:text-red-400 opacity-0 group-hover:opacity-100 text-2xl leading-none ml-2"
                     style={{ transition: "color 0.2s ease, opacity 0.2s ease, transform 0.2s ease" }}
-                    onMouseEnter={(e) => (e.currentTarget.style.transform = "scale(1.3)")}
-                    onMouseLeave={(e) => (e.currentTarget.style.transform = "scale(1)")}
                     aria-label="Delete todo"
                   >
                     ×

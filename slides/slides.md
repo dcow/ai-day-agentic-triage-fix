@@ -3,47 +3,52 @@ marp: true
 theme: default
 paginate: true
 style: |
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap');
+
   section {
-    font-family: system-ui, -apple-system, sans-serif;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
     font-size: 1.1em;
     padding: 48px 64px;
-    background: #fafaf9;
-    color: #1c1917;
+    background: #f5f3ff;
+    color: #1e1b4b;
   }
 
   /* ── Lead / title slides ── */
   section.lead {
-    background: #0c1122;
+    background: linear-gradient(135deg, #1e1b4b 0%, #312e81 50%, #4c1d95 100%);
     color: #f1f5f9;
     justify-content: center;
   }
   section.lead h1 {
     font-size: 2.4em;
     line-height: 1.1;
+    font-weight: 300;
     color: #f1f5f9;
     margin-bottom: 0.4em;
+    letter-spacing: 0.05em;
   }
-  section.lead h2 { color: #f1f5f9; border-color: #f59e0b; }
-  section.lead p { color: #94a3b8; font-size: 1.1em; margin: 0.2em 0; }
-  section.lead strong { color: #f59e0b; }
-  section.lead code { background: #1e2d40; color: #fbbf24; }
+  section.lead h2 { color: #f1f5f9; border-color: #a78bfa; }
+  section.lead p { color: #c4b5fd; font-size: 1.1em; margin: 0.2em 0; }
+  section.lead strong { color: #f0abfc; }
+  section.lead code { background: rgba(167,139,250,0.2); color: #e9d5ff; }
 
   /* ── Dark slides ── */
   section.dark {
-    background: #0c1122;
+    background: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
     color: #f1f5f9;
   }
-  section.dark h2 { color: #f1f5f9; border-color: #f59e0b; }
-  section.dark p, section.dark li { color: #cbd5e1; }
+  section.dark h2 { color: #f1f5f9; border-color: #a78bfa; }
+  section.dark p, section.dark li { color: #c4b5fd; }
   section.dark strong { color: #f1f5f9; }
-  section.dark em { color: #f59e0b; }
-  section.dark code { background: #1e2d40; color: #fbbf24; }
+  section.dark em { color: #f0abfc; }
+  section.dark code { background: rgba(167,139,250,0.2); color: #e9d5ff; }
 
   /* ── Headings ── */
   h2 {
     font-size: 1.5em;
-    color: #1c1917;
-    border-bottom: 3px solid #f59e0b;
+    font-weight: 500;
+    color: #1e1b4b;
+    border-bottom: 3px solid #7c3aed;
     padding-bottom: 0.2em;
     margin-bottom: 0.6em;
   }
@@ -51,15 +56,15 @@ style: |
   /* ── Typography ── */
   p { line-height: 1.65; margin: 0.4em 0; }
   li { line-height: 1.8; }
-  strong { color: #1c1917; }
-  em { color: #b45309; font-style: normal; font-weight: 600; }
+  strong { color: #1e1b4b; }
+  em { color: #7c3aed; font-style: normal; font-weight: 600; }
 
   /* ── Inline code ── */
   code {
     font-family: 'JetBrains Mono', 'Cascadia Code', 'Fira Code', ui-monospace, monospace;
     font-size: 0.82em;
-    background: #fef3c7;
-    color: #92400e;
+    background: #ede9fe;
+    color: #5b21b6;
     padding: 2px 6px;
     border-radius: 4px;
   }
@@ -68,7 +73,7 @@ style: |
   pre {
     background: #0f1923;
     border-radius: 8px;
-    border-left: 3px solid #f59e0b;
+    border-left: 3px solid #7c3aed;
   }
   pre code {
     background: transparent;
@@ -85,18 +90,18 @@ style: |
   .hljs-keyword, .hljs-selector-tag { color: #c084fc; }
   .hljs-literal, .hljs-number { color: #fb923c; }
   .hljs-built_in, .hljs-type { color: #67e8f9; }
-  .hljs-variable, .hljs-template-variable { color: #fbbf24; }
-  .hljs-title, .hljs-section { color: #fbbf24; }
+  .hljs-variable, .hljs-template-variable { color: #a78bfa; }
+  .hljs-title, .hljs-section { color: #a78bfa; }
   .hljs-name { color: #f472b6; }
   .hljs-punctuation { color: #94a3b8; }
 
   /* ── Tables ── */
   table { font-size: 0.88em; border-collapse: collapse; width: 100%; }
-  th { background: #fef3c7; color: #78350f; font-weight: 600; }
-  td, th { padding: 7px 14px; border: 1px solid #e7e5e4; }
+  th { background: #ede9fe; color: #4c1d95; font-weight: 600; }
+  td, th { padding: 7px 14px; border: 1px solid #ddd6fe; }
 
   /* ── Page numbers ── */
-  section::after { color: #a8a29e; font-size: 0.75em; }
+  section::after { color: #a78bfa; font-size: 0.75em; }
 ---
 
 <!-- _class: lead -->
@@ -169,7 +174,7 @@ Slash commands gate at the *Actions predicate level* — the agent never spins u
 
 ---
 
-why ## A second Claude reviews every PR
+## A second Claude reviews every PR
 
 Every PR — including ones the triage agent opens — gets reviewed by a second Claude acting as a skeptical security engineer.
 
@@ -179,7 +184,7 @@ Not a linter. It reads the full diff **and the surrounding context** of changed 
 - `medium` / `low` → `risk:low` label, leaves a comment
 - Nothing found → *"No significant risks identified."* — and it means it
 
-The key prompt instruction: **don't invent risks to appear thorough.** A clean PR gets a clean review.
+Key instruction: **don't invent risks to appear thorough.** A clean PR gets a clean review.
 
 ---
 
